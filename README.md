@@ -22,11 +22,14 @@ In order to start a new game, you have to ensure you have java >11 installed wit
 Once it is, you can start the programm with :<br>
 java --module-path PATH_TO_JAVAFX/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics PATH_TO_TABLUT/src/main/java/Tablut.java
 
+## Using O(sarracino)
+To be able to use O(sarracino), you have to compile it and place the osarracino executable in the target/classes/control/algos directory.
+
+
 ## Example pictures
 <img src="images/1.png" alt="Board picture">
 <img src="images/2.png" alt="New Game 1st picture">
 <img src="images/3.png" alt="New Game 2nd picture">
-
 
 
 
