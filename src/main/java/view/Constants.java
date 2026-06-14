@@ -15,25 +15,27 @@ public final class Constants {
     // WINDOW  — capped at the available screen area
     // =========================================================
 
-    private static final double RAW_WIDTH;
-    private static final double RAW_HEIGHT;
 
-    static {
-        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
-        // Desired aspect ratio is ~1180×820 ≈ 1.44 : 1
-        double maxW = screen.getWidth()  * 0.96;
-        double maxH = screen.getHeight() * 0.90;
+    // those can't work for the unit tests so just use hardcoded values
+//    private static final double RAW_WIDTH;
+//    private static final double RAW_HEIGHT;
+//
+//    static {
+//        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+//        // Desired aspect ratio is ~1180×820 ≈ 1.44 : 1
+//        double maxW = screen.getWidth()  * 0.96;
+//        double maxH = screen.getHeight() * 0.90;
+//
+//        double byWidth  = maxW;
+//        double byHeight = maxH * (1180.0 / 820.0);
+//
+//        double chosen = Math.min(byWidth, byHeight);
+//        RAW_WIDTH  = chosen;
+//        RAW_HEIGHT = chosen * (820.0 / 1180.0);
+//    }
 
-        double byWidth  = maxW;
-        double byHeight = maxH * (1180.0 / 820.0);
-
-        double chosen = Math.min(byWidth, byHeight);
-        RAW_WIDTH  = chosen;
-        RAW_HEIGHT = chosen * (820.0 / 1180.0);
-    }
-
-    public static final double WINDOW_WIDTH  = RAW_WIDTH;
-    public static final double WINDOW_HEIGHT = RAW_HEIGHT;
+    public static final double WINDOW_WIDTH  = 1180;
+    public static final double WINDOW_HEIGHT = 820;
 
     /** Scale factor relative to the original 1180-wide design. */
     private static final double S = WINDOW_WIDTH / 1180.0;

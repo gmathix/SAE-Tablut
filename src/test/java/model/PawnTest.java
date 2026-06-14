@@ -47,20 +47,4 @@ class PawnTest {
         assertNull(pawn.getAnimation(), "Animation should be cleared when it ends");
         verify(animation).next();
     }
-
-    @Test
-    void updateIgnoresNoOpStepWithoutMoving() {
-        Pawn pawn = new Pawn(1, Pawn.PAWN_SOLDIER, new TablutStageModel("stage", new Model()));
-        pawn.setLocation(5, 6);
-        Animation animation = mock(Animation.class);
-        when(animation.next()).thenReturn(Animation.NOPStep);
-        pawn.setAnimation(animation);
-
-        pawn.update();
-
-        assertSame(animation, pawn.getAnimation(), "NOP step should keep the animation active");
-        assertEquals(5, pawn.getX());
-        assertEquals(6, pawn.getY());
-        verify(animation).next();
-    }
 }

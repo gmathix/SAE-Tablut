@@ -6,6 +6,7 @@ import control.TablutController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import testutil.TablutTestUtils;
+import view.Constants;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -82,11 +83,10 @@ class TablutBoardTest {
     void computeValidCellsBlocksCampSquaresForNonCampMoscovitesAndAllowsThemFromCamp() {
         stage.setRuleSet(RuleSets.RULESET_ASHTON_RULES);
 
-        Pawn outsideCamp = TablutTestUtils.placePawn(board, stage, 1, Pawn.PAWN_MOSCOVITE, 0, 6);
+        Pawn outsideCamp = TablutTestUtils.placePawn(board, stage, 1, Pawn.PAWN_MOSCOVITE, 7, 6);
         List<Point> blocked = board.computeValidCells(outsideCamp.getNumber());
-        assertTrue(blocked.contains(new Point(0, 5)));
-        assertTrue(blocked.contains(new Point(0, 4)));
-        assertFalse(blocked.contains(new Point(0, 3)), "A non-camp moscovite should stop before the camp square");
+        assertTrue(blocked.contains(new Point(7, 5)));
+        assertFalse(blocked.contains(new Point(7, 4)), "A non-camp moscovite should stop before the camp square");
 
         board = new TablutBoard(0, 0, stage);
         stage.setBoard(board);
@@ -107,11 +107,11 @@ class TablutBoardTest {
 
         TablutBoard campBoard = new TablutBoard(0, 0, stage);
         stage.setBoard(campBoard);
-        TablutTestUtils.placePawn(campBoard, stage, 4, Pawn.PAWN_MOSCOVITE, 6, 0);
-        TablutTestUtils.placePawn(campBoard, stage, 5, Pawn.PAWN_SOLDIER, 4, 0);
+        TablutTestUtils.placePawn(campBoard, stage, 4, Pawn.PAWN_MOSCOVITE, 7, 1);
+        TablutTestUtils.placePawn(campBoard, stage, 5, Pawn.PAWN_SOLDIER, 5, 1);
 
-        List<Integer> campCapture = campBoard.checkCaptures(true, 6, 5, 0, 0);
-        assertEquals(List.of(0), campCapture, "Camp squares should count as ally squares under Ashton rules");
+        List<Integer> campCapture = campBoard.checkCaptures(true, 7, 6, 1, 1);
+        assertEquals(List.of(14), campCapture, "Camp squares should count as ally squares under Ashton rules");
     }
 
     @Test

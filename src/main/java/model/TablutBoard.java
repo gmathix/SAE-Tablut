@@ -116,6 +116,10 @@ public class TablutBoard extends ContainerElement {
                         } else {
                             break;
                         }
+                    } else if (pawn.getColor() == Pawn.PAWN_KING && RuleSets.isConstrainedKingSquares(stageModel.getRuleSet())){
+                        if (!RuleSets.constrainedKingSquares.contains(y*9+x)) {
+                            lst.add(new Point(x, y));
+                        }
                     } else {
                         lst.add(new Point(x, y));
                     }

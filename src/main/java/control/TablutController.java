@@ -535,12 +535,17 @@ public class TablutController extends Controller {
             boolean freeWay = true;
             int y = kingY;
             int x = kingX;
-            for (int step = 0; step < 8; step++) {
+            int maxDist = RuleSets.isConstrainedKingMoves(stageModel.getRuleSet()) ? 4 : 8;
+            for (int step = 0; step < maxDist; step++) {
                 y += dy[i];
                 x += dx[i];
                 if (y < 0 || y > 8 || x < 0 || x > 8) {
                     break;
+                } else if (maxDist == 4 && step == 3) {
+                    freeWay = false;
+                    break;
                 }
+
                 if (board.getElement(y, x) instanceof Pawn) {
                     freeWay = false;
                     break;
@@ -550,6 +555,14 @@ public class TablutController extends Controller {
                     break;
                 }
                 if (RuleSets.isAshtonRules(stageModel.getRuleSet()) && RuleSets.isCampSquare(y*9+x)) {
+                    freeWay = false;
+                    break;
+                }
+                if (RuleSets.isCornerKingEscapes(stageModel.getRuleSet()) && !RuleSets.cornerSquares.contains(y*9+x)) {
+                    freeWay = false;
+                    break;
+                }
+                if (RuleSets.isConstrainedKingSquares(stageModel.getRuleSet()) && RuleSets.constrainedKingSquares.contains(y*9+x)) {
                     freeWay = false;
                     break;
                 }
