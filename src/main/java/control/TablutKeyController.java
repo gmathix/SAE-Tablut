@@ -12,7 +12,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.*;
 
+import java.security.Key;
 import java.util.List;
+import java.util.Objects;
 
 public class TablutKeyController extends ControllerKey implements EventHandler<KeyEvent> {
     private boolean leftPressed = false;
@@ -24,6 +26,9 @@ public class TablutKeyController extends ControllerKey implements EventHandler<K
 
     public void handle(KeyEvent event) {
         if (!model.isCaptureKeyEvent()) return;
+        if (event.getEventType() == KeyEvent.KEY_PRESSED &&
+                event.getCode() != KeyCode.LEFT && event.getCode() != KeyCode.RIGHT) return;
+
 
         if (event.getEventType() == KeyEvent.KEY_PRESSED) {
 

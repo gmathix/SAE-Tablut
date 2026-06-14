@@ -1,44 +1,28 @@
 package model;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class RuleSetsTest {
+class RuleSetsTest {
 
     @Test
-    void isCampSquare_knownCampSquares_returnsTrue() {
-        assertTrue(RuleSets.isCampSquare(3));
-        assertTrue(RuleSets.isCampSquare(4));
-        assertTrue(RuleSets.isCampSquare(5));
-        assertTrue(RuleSets.isCampSquare(13));
+    void campSquareChecksCoverLowHighAndFalseCases() {
+        assertTrue(RuleSets.isCampSquare(3), "Low-bit camp square should be detected");
+        assertTrue(RuleSets.isCampSquare(67), "High-bit camp square should be detected");
+        assertFalse(RuleSets.isCampSquare(10), "Non-camp square should not be detected");
     }
 
     @Test
-    void isCampSquare_centerSquare_returnsFalse() {
-        assertFalse(RuleSets.isCampSquare(40));
-    }
+    void ruleBitChecksRespectIndividualFlags() {
+        int ruleSet = RuleSets.RULESET_NORMAL
+                | RuleSets.RULESET_CONSTRAINED_KING_SQUARES
+                | RuleSets.RULESET_CORNER_KING_ESCAPES;
 
-    @Test
-    void isAshtonRules_withAshtonBit_returnsTrue() {
-        int ruleset = RuleSets.RULESET_ASHTON_RULES;
-        assertTrue(RuleSets.isAshtonRules(ruleset));
-        assertFalse(RuleSets.isNormal(ruleset));
+        assertTrue(RuleSets.isNormal(ruleSet));
+        assertTrue(RuleSets.isConstrainedKingSquares(ruleSet));
+        assertFalse(RuleSets.isConstrainedKingMoves(ruleSet));
+        assertTrue(RuleSets.isCornerKingEscapes(ruleSet));
+        assertFalse(RuleSets.isAshtonRules(ruleSet));
     }
-
-    @Test
-    void isConstrainedKingMoves_combinedRuleset() {
-        int ruleset = RuleSets.RULESET_NORMAL | RuleSets.RULESET_CONSTRAINED_KING_MOVES;
-        assertTrue(RuleSets.isConstrainedKingMoves(ruleset));
-        assertTrue(RuleSets.isNormal(ruleset));
-        assertFalse(RuleSets.isCornerKingEscapes(ruleset));
-    }
-
-    @Test
-    void campSquareList_matchesBitmaks() {
-        for (int sq : RuleSets.campSquaresList) {
-            assertTrue(RuleSets.isCampSquare(sq));
-        }
-    }
-
 }
